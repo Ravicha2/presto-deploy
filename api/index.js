@@ -18,7 +18,10 @@ const { PROD_BACKEND_PORT, USE_VERCEL_KV } = process.env;
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://z5625225-fe-presto.vercel.app'],
+  credentials: true,
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "50mb" }));
 
