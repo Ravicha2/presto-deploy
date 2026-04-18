@@ -15,6 +15,7 @@ import {
   setStore,
 } from "./service.js";
 const { PROD_BACKEND_PORT, USE_VERCEL_KV } = process.env;
+const IS_PROD = USE_VERCEL_KV || !fs.existsSync("../frontend/backend.config.json");
 
 const app = express();
 
@@ -110,7 +111,7 @@ app.get("/", (req, res) => res.redirect("/docs"));
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-const port = USE_VERCEL_KV
+const port = IS_PROD
   ? PROD_BACKEND_PORT
   : JSON.parse(fs.readFileSync("../frontend/backend.config.json")).BACKEND_PORT;
 
